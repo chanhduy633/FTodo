@@ -19,8 +19,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20.19.0'
-          cache: 'npm'
+          node-version: "20.19.0"
+          cache: "npm"
 
       # ===== INSTALL DEPENDENCIES (FIX OPTIONAL DEPS ISSUE) =====
       - name: Install dependencies
@@ -42,7 +42,7 @@ jobs:
           name: frontend-dist
           path: dist
 
-    deploy:
+  deploy:
     runs-on: ubuntu-latest
     needs: build
 
@@ -53,7 +53,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20.19.0'
+          node-version: "20.19.0"
 
       # Cài dependencies (để có node_modules)
       - name: Install dependencies
@@ -73,3 +73,4 @@ jobs:
           app-name: todox-fe
           slot-name: Production
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BE092FCF84E2430BB5117D72E462E8A4 }}
+          # KHÔNG chỉ định package → deploy toàn bộ thư mục
