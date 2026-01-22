@@ -22,9 +22,14 @@ jobs:
           node-version: '20.19.0'
           cache: 'npm'
 
-      # ===== INSTALL (FIX ROLLUP OPTIONAL DEPENDENCIES) =====
+      # ===== INSTALL DEPENDENCIES (FIX OPTIONAL DEPS ISSUE) =====
       - name: Install dependencies
-        run: npm install --include=optional
+        run: |
+          # Workaround for npm bug with optional dependencies:
+          # https://github.com/npm/cli/issues/4828
+          # Remove package-lock.json to force npm to resolve platform-specific optional deps correctly
+          rm -f package-lock.json
+          npm install --include=optional
 
       # ===== BUILD =====
       - name: Build Vite app
