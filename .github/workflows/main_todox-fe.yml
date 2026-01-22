@@ -15,18 +15,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ===== SETUP NODE (RẤT QUAN TRỌNG) =====
+      # ===== SETUP NODE =====
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-          cache: 'npm'
 
-      # ===== CLEAN + INSTALL =====
+      # ===== INSTALL DEPENDENCIES =====
       - name: Install dependencies
-        run: |
-          rm -rf node_modules package-lock.json
-          npm ci
+        run: npm install
 
       # ===== BUILD =====
       - name: Build Vite app
@@ -51,7 +48,7 @@ jobs:
           name: frontend-dist
           path: dist
 
-      # ===== DEPLOY =====
+      # ===== DEPLOY TO AZURE =====
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
