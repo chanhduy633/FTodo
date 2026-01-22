@@ -11,25 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ===== CHECKOUT =====
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ===== SETUP NODE =====
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
+          node-version: '20.19.0'
 
-      # ===== INSTALL DEPENDENCIES =====
       - name: Install dependencies
         run: npm install
 
-      # ===== BUILD =====
       - name: Build Vite app
         run: npm run build
 
-      # ===== UPLOAD DIST =====
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
@@ -41,14 +36,12 @@ jobs:
     needs: build
 
     steps:
-      # ===== DOWNLOAD ARTIFACT =====
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: frontend-dist
           path: dist
 
-      # ===== DEPLOY TO AZURE =====
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
